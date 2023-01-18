@@ -11,6 +11,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Asteroid
       objectReference: {fileID: 0}
+    - target: {fileID: 1379459666093482, guid: 28548987d12c89f4bb36b9bef96ceebe, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
+      objectReference: {fileID: 0}
     - target: {fileID: 4404864704542510, guid: 28548987d12c89f4bb36b9bef96ceebe, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -75,6 +79,19 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1379459666093482, guid: 28548987d12c89f4bb36b9bef96ceebe, type: 3}
   m_PrefabInstance: {fileID: 5749560796977040378}
   m_PrefabAsset: {fileID: 0}
+--- !u!135 &5769417228003058314
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5750654211208851024}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 124.535065
+  m_Center: {x: -0.0013961792, y: 0.2962227, z: -0.60084534}
 --- !u!114 &8336469089053643951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -90,16 +107,3 @@ MonoBehaviour:
   speed: 20
   rotationRate: 20
   explosion: {fileID: 1290715649332758, guid: 4aa593e408797c540a0fa3223c737d70, type: 3}
---- !u!135 &5769417228003058314
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5750654211208851024}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 124.535065
-  m_Center: {x: -0.0013961792, y: 0.2962227, z: -0.60084534}

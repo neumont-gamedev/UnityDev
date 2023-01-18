@@ -11,12 +11,11 @@ public class Player : MonoBehaviour
 
 	private void Awake()
 	{
-		Debug.Log("awake");
+
 	}
 
 	void Start()
 	{
-		Debug.Log("start");
 	}
 
 	void Update()
@@ -28,18 +27,22 @@ public class Player : MonoBehaviour
 		Vector3 rotation = Vector3.zero;
 		rotation.y = Input.GetAxis("Horizontal");
 
-
 		Quaternion rotate = Quaternion.Euler(rotation * rotationRate * Time.deltaTime);
 		transform.rotation = transform.rotation * rotate;
 
 		transform.Translate(direction * speed * Time.deltaTime);
-		//transform.position += direction * speed * Time.deltaTime;
 
-		if (Input.GetButton("Fire1"))
+		if (Input.GetButtonDown("Fire1"))
 		{
-			//Debug.Log("pew!");
-			//GetComponent<AudioSource>().Play();
 			GameObject go = Instantiate(prefab, bulletSpawnLocation.position, bulletSpawnLocation.rotation);
+		}
+	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.gameObject.CompareTag("Enemy"))
+		{
+			FindObjectOfType<AsteroidGameManager>()?.SetGameOver();
 		}
 	}
 }
