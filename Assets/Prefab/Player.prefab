@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2372115853117998719}
   - component: {fileID: 2372115853117998713}
+  - component: {fileID: 4216637181483744722}
   - component: {fileID: 2372115853117998716}
   - component: {fileID: 2372115853117998717}
   - component: {fileID: 2372115853117998706}
@@ -50,6 +51,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   view: {fileID: 0}
   maxForce: 10
+  groundRayLength: 0.6
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!114 &4216637181483744722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2372115853117998707}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49d3e04a60dc3464ca65fdbc0c16c7f9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 100
 --- !u!33 &2372115853117998716
 MeshFilter:
   m_ObjectHideFlags: 0
