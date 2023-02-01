@@ -5,6 +5,8 @@ using UnityEngine;
 [RequireComponent(typeof(CollisionEvent))]
 public class Damage : Interactable
 {
+	[SerializeField] EventRouter eventRouter;
+
 	[SerializeField] float damage = 0;
 	[SerializeField] bool oneTime = true;
 

@@ -511,8 +511,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 525c1e13477034546b0dd4acf5054eb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minTime: 1
-  maxTime: 2
+  spawnMinTime: 2
+  spawnMaxTime: 5
+  enableOnAwake: 1
   radius: 500
   spawnLocation: {fileID: 1852807352}
   prefabs:

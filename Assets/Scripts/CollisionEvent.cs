@@ -7,7 +7,6 @@ public class CollisionEvent : MonoBehaviour
 {
 	[SerializeField] private string hitTagName = string.Empty;
 
-	//public delegate void CollisionDelegate(GameObject other);
 	public Action<GameObject> onEnter;
 	public Action<GameObject> onExit;
 	public Action<GameObject> onStay;
