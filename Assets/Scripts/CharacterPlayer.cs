@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class CharacterPlayer : MonoBehaviour
@@ -13,10 +13,27 @@ public class CharacterPlayer : MonoBehaviour
 	[SerializeField] private float jumpHeight = 2;
 
     CharacterController characterController;
+	PlayerInputActions playerInput;
 	Camera mainCamera;
 	Vector3 velocity = Vector3.zero;
 
-    void Start()
+	private void OnEnable()
+	{
+		playerInput.Enable();
+	}
+
+	private void OnDisable()
+	{
+		playerInput.Disable();
+	}
+
+
+	private void Awake()
+	{
+		playerInput = new PlayerInputActions();
+	}
+
+	void Start()
     {
         characterController = GetComponent<CharacterController>();
 		mainCamera = Camera.main;
@@ -26,8 +43,11 @@ public class CharacterPlayer : MonoBehaviour
     void Update()
     {
         Vector3 direction = Vector3.zero;
-        direction.x = Input.GetAxis("Horizontal");
-        direction.z = Input.GetAxis("Vertical");
+		Vector2 axis = playerInput.Player.Move.ReadValue<Vector2>();
+
+
+        direction.x = axis.x;
+        direction.z = axis.y;
 
 		direction = mainCamera.transform.TransformDirection(direction);
 
@@ -35,7 +55,7 @@ public class CharacterPlayer : MonoBehaviour
 		{
 			velocity.x = direction.x * speed;
 			velocity.z = direction.z * speed;
-			if (Input.GetButtonDown("Jump"))
+			if (playerInput.Player.Jump.triggered)
 			{
 				velocity.y = Mathf.Sqrt(jumpHeight * -3 * gravity);
 			}
@@ -77,5 +97,10 @@ public class CharacterPlayer : MonoBehaviour
 
 		// Apply the push
 		body.velocity = pushDir * hitForce;
+	}
+
+	public void OnJump(InputAction.CallbackContext context)
+	{
+		if (context.performed) Debug.Log("JUMP!");
 	}
 }
