@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d68144f1dae1e464d9a94549990ca2f0, type: 3}
+  m_Name: Weapon
+  m_EditorClassIdentifier: 
+  id: Punch
+  description: 
+  itemType: 1
+  icon: {fileID: 0}
+  itemPrefab: {fileID: 0}
+  fireMode: 0
+  fireRate: 2
+  rounds: 0
+  animTriggerName: Punch
+  ammoPrefab: {fileID: 301350519312575510, guid: 4599abe7b70998a4aaccfa8160961dac, type: 3}

@@ -6,50 +6,40 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class CharacterPlayer : MonoBehaviour
 {
-    [SerializeField] private float speed = 5;
-    [SerializeField] private float hitForce = 2;
+	[SerializeField] private float speed = 5;
+	[SerializeField] private float hitForce = 2;
 	[SerializeField] private float gravity = Physics.gravity.y;
 	[SerializeField] private float turnRate = 10;
 	[SerializeField] private float jumpHeight = 2;
 	[SerializeField] private Animator animator;
+	[SerializeField] private InputRouter inputRouter;
 
-    CharacterController characterController;
-	PlayerInputActions playerInput;
+
+	CharacterController characterController;
+	Vector2 inputAxis;
+
 	Camera mainCamera;
 	Vector3 velocity = Vector3.zero;
 	float inAirTime = 0;
 
-	private void OnEnable()
-	{
-		playerInput.Enable();
-	}
-
-	private void OnDisable()
-	{
-		playerInput.Disable();
-	}
-
-
-	private void Awake()
-	{
-		playerInput = new PlayerInputActions();
-	}
-
 	void Start()
-    {
-        characterController = GetComponent<CharacterController>();
+	{
+		characterController = GetComponent<CharacterController>();
 		mainCamera = Camera.main;
-    }
+
+		inputRouter.jumpEvent += OnJump;
+		inputRouter.moveEvent += OnMove;
+		inputRouter.fireEvent += OnFire;
+		inputRouter.fireStopEvent += OnFireStop;
+	}
 
 
-    void Update()
-    {
-        Vector3 direction = Vector3.zero;
-		Vector2 axis = playerInput.Player.Move.ReadValue<Vector2>();
+	void Update()
+	{
+		Vector3 direction = Vector3.zero;
 
-
-        direction.x = axis.x;
-        direction.z = axis.y;
+		direction.x = inputAxis.x;
+		direction.z = inputAxis.y;
 
 		direction = mainCamera.transform.TransformDirection(direction);
 
@@ -58,11 +48,6 @@ public class CharacterPlayer : MonoBehaviour
 			velocity.x = direction.x * speed;
 			velocity.z = direction.z * speed;
 			inAirTime = 0;
-			if (playerInput.Player.Jump.triggered)
-			{
-				animator.SetTrigger("Jump");
-				velocity.y = Mathf.Sqrt(jumpHeight * -3 * gravity);
-			}
 		}
 		else
 		{
@@ -70,7 +55,7 @@ public class CharacterPlayer : MonoBehaviour
 			velocity.y += gravity * Time.deltaTime;
 		}
 
-        characterController.Move(velocity * Time.deltaTime);
+		characterController.Move(velocity * Time.deltaTime);
 		Vector3 look = direction;
 		look.y = 0;
 		if (look.magnitude > 0)
@@ -114,9 +99,29 @@ public class CharacterPlayer : MonoBehaviour
 		body.velocity = pushDir * hitForce;
 	}
 
-	public void OnJump(InputAction.CallbackContext context)
+	public void OnJump()
 	{
-		if (context.performed) Debug.Log("JUMP!");
+		if (characterController.isGrounded)
+		{
+			animator.SetTrigger("Jump");
+			velocity.y = Mathf.Sqrt(jumpHeight * -3 * gravity);
+		}
+	}
+
+	public void OnFire()
+	{
+		
+	}
+
+	public void OnFireStop()
+	{
+		
+	}
+
+
+	public void OnMove(Vector2 axis)
+	{
+		inputAxis = axis;
 	}
 
 	public void OnLeftFootSpawn(GameObject go)
