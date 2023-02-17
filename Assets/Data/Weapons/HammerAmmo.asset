@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ba4c27c909715cc45b8f4d77b4e4db55, type: 3}
+  m_Name: HammerAmmo
+  m_EditorClassIdentifier: 
+  ammoType: 0
+  lifetime: 0
+  damage: 0
+  destroyOnImpact: 0
+  impactPrefab: {fileID: 0}
+  force: 0
+  forceMode: 0
+  damageOverTime: 0
+  bounce: 0
+  rotateToVelocity: 0
+  impactOnExpired: 0
+  distance: 0
+  hitMask:
+    serializedVersion: 2
+    m_Bits: 0
