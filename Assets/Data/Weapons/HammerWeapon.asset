@@ -12,16 +12,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6461e6fb9cc4af941ab95f7d5b42799c, type: 3}
   m_Name: HammerWeapon
   m_EditorClassIdentifier: 
-  id: 
+  id: Hammer
   description: 
   icon: {fileID: 0}
   allowMultiple: 0
-  itemType: 0
+  itemType: 1
   usageType: 0
-  animTriggerName: 
+  animTriggerName: Attack
   itemPrefab: {fileID: 0}
   pickupPrefab: {fileID: 0}
   fireRate: 0
   spread: {x: 0.1, y: 0.1, z: 0.1}
   rounds: 0
-  ammoPrefab: {fileID: 0}
+  ammoPrefab: {fileID: 3103671179678591872, guid: ac33e4d2743aa9f409540361f4fbb501, type: 3}

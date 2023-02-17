@@ -12,12 +12,13 @@ public class EnemyCharacter : MonoBehaviour
 	private NavMeshAgent navMeshAgent;
 	private Transform target;
 
-
 	private void Start()
 	{
 		target = GameObject.FindGameObjectWithTag("Player")?.transform;
 		mainCamera = Camera.main;
 		navMeshAgent = GetComponent<NavMeshAgent>();
+
+		GetComponent<Health>().onDeath += OnDeath;
 	}
 
 
@@ -34,5 +35,17 @@ public class EnemyCharacter : MonoBehaviour
 		//		navMeshAgent.SetDestination(hit.point);
 		//	}
 		//}
+	}
+
+	void OnDeath()
+	{
+		StartCoroutine(Death());
+	}
+
+	IEnumerator Death()
+	{
+		animator.SetTrigger("Death");
+		yield return new WaitForSeconds(4.0f);
+		Destroy(gameObject);
 	}
 }
