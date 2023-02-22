@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Ammo : MonoBehaviour
+public abstract class Ammo : MonoBehaviour
 {
 	[SerializeField] protected AmmoData ammoData;
 

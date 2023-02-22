@@ -11,6 +11,7 @@ public class InputRouter : ScriptableObject, PlayerInputActions.IPlayerActions
 	public UnityAction fireStopEvent;
 	public UnityAction jumpEvent;
 	public UnityAction jumpStopEvent;
+	public UnityAction nextItemEvent;
 	public UnityAction<Vector2> moveEvent;
 
 	private PlayerInputActions inputActions;
@@ -63,6 +64,14 @@ public class InputRouter : ScriptableObject, PlayerInputActions.IPlayerActions
 			case InputActionPhase.Canceled:
 				jumpStopEvent?.Invoke();
 				break;
+		}
+	}
+
+	public void OnNextItem(InputAction.CallbackContext context)
+	{
+		if (context.phase == InputActionPhase.Performed) 
+		{
+			nextItemEvent?.Invoke();
 		}
 	}
 }
