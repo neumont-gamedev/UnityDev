@@ -11,8 +11,11 @@ public class Weapon : Item
 	private int ammoCount = 0;
 	private bool weaponReady = false;
 
+	private IEnumerator autoFireCoroutine;
+
 	private void Start()
 	{
+		autoFireCoroutine = AutoFire();
 		if (ammoTransform == null) ammoTransform = transform;
 	}
 
@@ -45,12 +48,18 @@ public class Weapon : Item
 		else
 		{
 			// create ammo prefab
-			Instantiate(weaponData.ammoPrefab, ammoTransform.position, ammoTransform.rotation);
-			if (weaponData.usageType == UsageType.SINGLE || weaponData.usageType == UsageType.BURST) weaponReady = false;
-			if (weaponData.fireRate > 0)
+			if (weaponData.usageType == UsageType.SINGLE || weaponData.usageType == UsageType.BURST)
 			{
-				weaponReady = false;
-				StartCoroutine(ResetFireTimer());
+				Instantiate(weaponData.ammoPrefab, ammoTransform.position, ammoTransform.rotation);
+				if (weaponData.fireRate > 0)
+				{
+					weaponReady = false;
+					StartCoroutine(ResetFireTimer());
+				}
+			}
+			else
+			{
+				StartCoroutine(autoFireCoroutine);
 			}
 		}
 	}
@@ -58,6 +67,8 @@ public class Weapon : Item
 	public override void StopUse()
 	{
 		if (weaponData.usageType == UsageType.SINGLE || weaponData.usageType == UsageType.BURST) weaponReady = true;
+		StopCoroutine(autoFireCoroutine);
+
 	}
 
 	public override bool isReady()
@@ -76,5 +87,14 @@ public class Weapon : Item
 	{
 		yield return new WaitForSeconds(weaponData.fireRate);
 		weaponReady = true;
+	}
+
+	IEnumerator AutoFire()
+	{
+		while (true)
+		{
+			Instantiate(weaponData.ammoPrefab, ammoTransform.position, ammoTransform.rotation);
+			yield return new WaitForSeconds(weaponData.fireRate);
+		}
 	}
 }

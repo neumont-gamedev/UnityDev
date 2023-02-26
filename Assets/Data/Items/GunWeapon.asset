@@ -23,7 +23,7 @@ MonoBehaviour:
   animEquipName: WeaponEquip
   itemPrefab: {fileID: 0}
   pickupPrefab: {fileID: 0}
-  fireRate: 0.2
+  fireRate: 0.1
   spread: {x: 0.1, y: 0.1, z: 0.1}
   rounds: 0
-  ammoPrefab: {fileID: 3103671179678591872, guid: ac33e4d2743aa9f409540361f4fbb501, type: 3}
+  ammoPrefab: {fileID: 6966563135720802037, guid: c39ecc3fa2fe21644981ce595dc9f15c, type: 3}
