@@ -15,3 +15,5 @@ MonoBehaviour:
   items:
   - itemData: {fileID: 11400000, guid: 0ea4a5c3745f8d248bd1455fee7776c6, type: 2}
     count: 0
+  - itemData: {fileID: 11400000, guid: df99b094162500342928971ccf54b813, type: 2}
+    count: 0

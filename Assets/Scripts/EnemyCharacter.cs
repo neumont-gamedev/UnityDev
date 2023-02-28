@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -11,6 +12,20 @@ public class EnemyCharacter : MonoBehaviour
 	private Camera mainCamera;
 	private NavMeshAgent navMeshAgent;
 	private Transform target;
+
+	private State state = State.IDLE;
+	private float timer = 0;
+
+	enum State
+	{
+		IDLE,
+		PATROL,
+		CHASE,
+		ATTACK,
+		DEATH
+	}
+
+
 
 	private void Start()
 	{
@@ -24,17 +39,30 @@ public class EnemyCharacter : MonoBehaviour
 
 	void Update()
 	{
+		switch (state)
+		{
+			case State.IDLE:
+				state = State.PATROL;
+				break;
+			case State.PATROL:
+				navMeshAgent.isStopped = false;
+				target = GetComponent<WaypointNavigator>().waypoint.transform;
+				break;
+			case State.CHASE:
+				navMeshAgent.isStopped = false;
+				break;
+			case State.ATTACK:
+				navMeshAgent.isStopped = true;
+				break;
+			case State.DEATH:
+				navMeshAgent.isStopped = true;
+				break;
+			default:
+				break;
+		}
+
 		navMeshAgent.SetDestination(target.position);
 		animator.SetFloat("Speed", navMeshAgent.velocity.magnitude);
-
-		//if (Input.GetMouseButtonDown(0))
-		//{
-		//	Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-		//	if (Physics.Raycast(ray, out RaycastHit hit)) 
-		//	{
-		//		navMeshAgent.SetDestination(hit.point);
-		//	}
-		//}
 	}
 
 	void OnDeath()
