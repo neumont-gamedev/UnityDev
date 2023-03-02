@@ -28,6 +28,8 @@ public class CharacterPlayer : MonoBehaviour
 		inputRouter.fireEvent += OnFire;
 		inputRouter.fireStopEvent += OnFireStop;
 		inputRouter.nextItemEvent += OnNextItem;
+
+		GetComponent<Health>().onDeath += OnDeath;
 	}
 
 
@@ -144,4 +146,8 @@ public class CharacterPlayer : MonoBehaviour
 		Instantiate(go, bone.position, bone.rotation);
 	}
 
+	public void OnDeath()
+	{
+		Debug.Log("player dead");
+	}
 }

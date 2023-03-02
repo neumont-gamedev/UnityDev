@@ -2016,8 +2016,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81424fbf194932f4ca5d9c33a687f1b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensor: {fileID: 7399227908533102243}
   animator: {fileID: 7031972273158194021}
+  sensor: {fileID: 7399227908533102243}
+  attackTransform: {fileID: 8656825911568838961}
+  damage: 30
 --- !u!114 &7031972273158194020
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2045,7 +2047,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   origin: {fileID: 7055143152949845875}
-  tagetTag: Player
+  targetTag: Player
   distance: 10
   senseRate: 0.25
 --- !u!114 &7579899991546802084
