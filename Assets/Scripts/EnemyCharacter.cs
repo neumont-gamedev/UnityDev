@@ -60,7 +60,6 @@ public class EnemyCharacter : MonoBehaviour
 				{
 					target = sensor.sensed.transform;
 					float distance = Vector3.Distance(target.position, transform.position);
-					Debug.Log(distance);
 					if (distance <= 2)
 					{
 						StartCoroutine(Attack());

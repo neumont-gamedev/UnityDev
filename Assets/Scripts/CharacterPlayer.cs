@@ -1,15 +1,26 @@
+using Kino;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static CharacterPlayer;
 
 [RequireComponent(typeof(CharacterController))]
 public class CharacterPlayer : MonoBehaviour
 {
+	public enum Mode
+	{
+		THIRD_PERSON,
+		FREE
+	}
+
 	[SerializeField] private PlayerData playerData;
 	[SerializeField] private Animator animator;
 	[SerializeField] private InputRouter inputRouter;
 	[SerializeField] private Inventory inventory;
+
+	//[SerializeField] private CharacterCamera characterCamera;
+	[SerializeField] private Mode mode = Mode.THIRD_PERSON;
 
 	CharacterController characterController;
 	Vector2 inputAxis;
@@ -32,15 +43,26 @@ public class CharacterPlayer : MonoBehaviour
 		GetComponent<Health>().onDeath += OnDeath;
 	}
 
-
 	void Update()
 	{
 		Vector3 direction = Vector3.zero;
-
 		direction.x = inputAxis.x;
 		direction.z = inputAxis.y;
 
-		direction = mainCamera.transform.TransformDirection(direction);
+		switch (mode)
+		{
+			case Mode.THIRD_PERSON:
+				// convert direction to character space
+				direction = transform.rotation * direction;
+				break;
+			case Mode.FREE:
+				// convert direction to camera space
+				// convert the camera yaw to a quaternion (rotation)
+				Quaternion q = Quaternion.AngleAxis(mainCamera.transform.eulerAngles.y, Vector3.up);
+				// set the direction to be in camera space
+				direction = q * direction;
+				break;
+		}
 
 		if (characterController.isGrounded)
 		{
@@ -55,13 +77,28 @@ public class CharacterPlayer : MonoBehaviour
 		}
 
 		characterController.Move(velocity * Time.deltaTime);
+		
+		// rotation
+		// set the look vector to the direction vector but ignore the y component (up/down)
 		Vector3 look = direction;
 		look.y = 0;
+		// if the player is moving (look vector length is greater than 0) update the rotation
 		if (look.magnitude > 0)
 		{
-			transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), playerData.turnRate * Time.deltaTime);
+			switch (mode)
+			{
+				case Mode.THIRD_PERSON:
+					// rotate with input axis x (horizontal)
+					transform.rotation *= Quaternion.AngleAxis(inputAxis.x * playerData.turnRate * Time.deltaTime, Vector3.up);
+					
+					break;
+				case Mode.FREE:
+					// rotate towards look at direction
+					transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), playerData.turnRate * Time.deltaTime);
+					break;
+			}
 		}
-
+	
 		// set animator parameters
 		Vector3 v = velocity;
 		v.y = 0;
@@ -69,9 +106,12 @@ public class CharacterPlayer : MonoBehaviour
 		animator.SetFloat("VelocityY", characterController.velocity.y);
 		animator.SetFloat("InAirTime", inAirTime);
 		animator.SetBool("IsGrounded", characterController.isGrounded);
-
-
 	}
+
+	//	transform.rotation *= Quaternion.AngleAxis(direction.x * 2, Vector3.up);
+	//	//transform.rotation = Quaternion.Euler(0, followTargetTransform.rotation.eulerAngles.y, 0);
+	//	//transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(look), playerData.turnRate * Time.deltaTime);
+
 
 	void OnControllerColliderHit(ControllerColliderHit hit)
 	{

@@ -22,7 +22,13 @@ public class AudioData : ScriptableObject
 	[SerializeField] private bool loop = false;
 	[SerializeField] private Type type = Type.SFX;
 
-	
+	public AudioSourceController Play()
+	{
+		AudioSourceController controller = Play(Vector3.zero);
+
+		return controller;
+	}
+
 	public AudioSourceController Play(Transform parent)
 	{
 		AudioSourceController controller = Play(parent.position);

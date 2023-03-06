@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using static UnityEditor.Progress;
+//using static UnityEditor.Progress;
 
 [CreateAssetMenu(fileName = "Inventory", menuName = "Inventory/Inventory")]
 public class InventoryData : ScriptableObject

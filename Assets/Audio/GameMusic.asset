@@ -9,11 +9,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e66a0fad618563e4d8c57221f58a24c3, type: 3}
-  m_Name: PlayerData
+  m_Script: {fileID: 11500000, guid: 88ade84b095d00f42bbd5e4a1a805517, type: 3}
+  m_Name: GameMusic
   m_EditorClassIdentifier: 
-  speed: 3
-  hitForce: 2
-  gravity: -9.81
-  turnRate: 5
-  jumpHeight: 3
+  audioClips:
+  - {fileID: 8300000, guid: 46e1218e46352c84cb508cd67216257f, type: 3}
+  volume: 1
+  volumeRandom: 0
+  pitch: 0
+  pitchRandom: 0
+  spacialBlend: 1
+  loop: 0
+  type: 1
