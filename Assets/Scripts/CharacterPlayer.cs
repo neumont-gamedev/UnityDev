@@ -29,16 +29,29 @@ public class CharacterPlayer : MonoBehaviour
 	Vector3 velocity = Vector3.zero;
 	float inAirTime = 0;
 
-	void Start()
+	void Disable()
 	{
-		characterController = GetComponent<CharacterController>();
-		mainCamera = Camera.main;
+		inputRouter.jumpEvent -= OnJump;
+		inputRouter.moveEvent -= OnMove;
+		inputRouter.fireEvent -= OnFire;
+		inputRouter.fireStopEvent -= OnFireStop;
+		inputRouter.nextItemEvent -= OnNextItem;
+	}
 
+	void Enable()
+	{
 		inputRouter.jumpEvent += OnJump;
 		inputRouter.moveEvent += OnMove;
 		inputRouter.fireEvent += OnFire;
 		inputRouter.fireStopEvent += OnFireStop;
 		inputRouter.nextItemEvent += OnNextItem;
+	}
+
+	void Start()
+	{
+		characterController = GetComponent<CharacterController>();
+		mainCamera = Camera.main;
+
 
 		GetComponent<Health>().onDeath += OnDeath;
 	}

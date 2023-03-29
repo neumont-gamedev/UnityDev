@@ -11,7 +11,6 @@ public class AudioData : ScriptableObject
 		MUSIC
 	}
 
-
 	public AudioClip[] audioClips;
 
 	[SerializeField, Range(0, 1)] private float volume = 1;
@@ -24,6 +23,7 @@ public class AudioData : ScriptableObject
 
 	public AudioSourceController Play()
 	{
+		// play audio at center position
 		AudioSourceController controller = Play(Vector3.zero);
 
 		return controller;
@@ -31,7 +31,9 @@ public class AudioData : ScriptableObject
 
 	public AudioSourceController Play(Transform parent)
 	{
+		// play audio a parent position
 		AudioSourceController controller = Play(parent.position);
+		// set audio controller as child of parent
 		controller.SetParent(parent);
 
 		return controller;
@@ -40,6 +42,7 @@ public class AudioData : ScriptableObject
 	public AudioSourceController Play(Vector3 position)
 	{
 		AudioSourceController controller = AudioManager.Instance.GetController(type);
+
 		float volume = this.volume + Random.Range(-volumeRandom, volumeRandom);
 		float pitch = AudioUtilities.SemitoneToPitch(this.pitch + Random.Range(-pitchRandom, pitchRandom));
 		controller.SetSourceProperties(GetAudioClip(), volume, pitch, loop, spacialBlend);
@@ -54,6 +57,7 @@ public class AudioData : ScriptableObject
 	{
 		if (audioClips.Length == 0) return null;
 
+		// get a random clip if more than one clip referenced
 		int index = (audioClips.Length == 1) ? 0 : Random.Range(0, audioClips.Length);
 		return audioClips[index];
 	}
